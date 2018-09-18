@@ -50,7 +50,7 @@ public class ImagePage implements PageProcessor {
         Date beginTime = new Date();
         Spider.create(new ImagePage())
                 .addUrl("http://www.win4000.com/zt/gaoqing_1.html")
-                .thread(5)
+                .thread(1)
                 .start();
         Date endTime = new Date();
         System.out.println("====================="+ (endTime.getTime() - beginTime.getTime()));
