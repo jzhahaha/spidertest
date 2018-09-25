@@ -1,0 +1,46 @@
+<configuration>
+
+    <property name="localPattern"
+              value="%d{YYYY-MM-dd HH:mm:ss.SSS} %5p [%t] %c - %m%n"/>
+
+    <property name="defaultPattern"
+              value="%d{YYYY-MM-dd HH:mm:ss.SSS} %5p [%t] %c - %m %replace(%ex){'\n', '\t\t'}%nopex%n"/>
+
+
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>${localPattern}</pattern>
+        </encoder>
+    </appender>
+
+    <springProfile name="test">
+        <root level="INFO">
+            <appender-ref ref="Console" />
+        </root>
+        <logger name="com.spider.demo" level="DEBUG" additivity="false">
+            <appender-ref ref="Console" />
+        </logger>
+    </springProfile>
+
+    <springProfile name="dev, test, prod">
+        <appender name="RunLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>C:\Users\zj\Desktop\spidertest\spider.log</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>C:\Users\zj\Desktop\spidertest\spider.log.%d{yyyyMMdd}</fileNamePattern>
+            </rollingPolicy>
+            <encoder>
+                <charset>UTF-8</charset>
+                <pattern>${defaultPattern}</pattern>
+            </encoder>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="RunLog" />
+        </root>
+        <logger name="com.spider.demo" level="INFO" additivity="false">
+            <appender-ref ref="RunLog" />
+        </logger>
+    </springProfile>
+
+</configuration>

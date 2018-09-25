@@ -6,7 +6,7 @@ import java.net.URL;
 
 public class ImageUtils {
 
-    public static final String DOWNLOAD_PATH = "C:\\Users\\junzou214916\\Desktop\\spidertest";
+    public static final String DOWNLOAD_PATH = "C:\\Users\\zj\\Desktop\\spidertest";
     public static final String PIC_NAME_PRE = "/test_";
 
     public static void PicDownload(String picUrl, String name){

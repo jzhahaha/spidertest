@@ -1,6 +1,8 @@
 package com.spider.demo.pageprocess;
 
 import com.spider.demo.utils.ImageUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
@@ -10,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 
 public class ImagePage implements PageProcessor {
+
+    private final static Logger logger = LoggerFactory.getLogger(ImagePage.class);
 
     private final static int RETRY_TIMES = 3;
     private final static int SLEEP_TIME = 1000;
@@ -62,16 +66,16 @@ public class ImagePage implements PageProcessor {
         if (page.getUrl().regex("http://www\\.win4000\\.com/zt/meinv_\\w+.html").match()
                 || page.getUrl().regex("http://www\\.win4000\\.com/zt/meinv\\.html").match()) {
 //            System.out.println(page.getHtml().toString());
-            System.out.println(page.getUrl().toString());
+//            System.out.println(page.getUrl().toString());
             List<String> links2 = page.getHtml().xpath("//div[@class='Left_bar']//ul[@class='clearfix']/li/a").links().all();
             page.addTargetRequests(links2);
-        } else if( page.getUrl().regex("http://www\\.win4000\\.com/wallpaper_detail_*").match()){
-            List<String> links2 = page.getHtml().xpath("//div[@class='pic-meinv']/a").links().all();
-            page.addTargetRequests(links2);
-        }else {
+        } else {
             String picUrl = page.getHtml().xpath("//div[@class='pic-meinv']/a").css("img","src").toString();
+            String nextPageUrl = page.getHtml().xpath("//div[@class='pic-next-img']").css("a","href").toString();
             page.putField("url", picUrl);
+            page.addTargetRequest(nextPageUrl);
             ImageUtils.PicDownload(picUrl, String.valueOf(i)+".jpg");
+            logger.info("=======page : {}, url: {} , i:{}",page.getUrl().toString(), picUrl, i);
             i++;
         }
     }
