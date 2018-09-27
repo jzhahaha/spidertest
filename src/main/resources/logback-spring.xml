@@ -14,7 +14,7 @@
         </encoder>
     </appender>
 
-    <springProfile name="test">
+    <springProfile name="dev,test">
         <root level="INFO">
             <appender-ref ref="Console" />
         </root>
@@ -25,9 +25,9 @@
 
     <springProfile name="dev, test, prod">
         <appender name="RunLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
-            <file>C:\Users\zj\Desktop\spidertest\spider.log</file>
+            <file>C:\Users\junzou214916\Desktop\spidertest\spider.log</file>
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                <fileNamePattern>C:\Users\zj\Desktop\spidertest\spider.log.%d{yyyyMMdd}</fileNamePattern>
+                <fileNamePattern>C:\Users\junzou214916\Desktop\spidertest\spider.log.%d{yyyyMMdd}</fileNamePattern>
             </rollingPolicy>
             <encoder>
                 <charset>UTF-8</charset>

@@ -66,7 +66,9 @@ public class ImagePage implements PageProcessor {
         if (page.getUrl().regex("http://www\\.win4000\\.com/zt/meinv_\\w+.html").match()
                 || page.getUrl().regex("http://www\\.win4000\\.com/zt/meinv\\.html").match()) {
 //            System.out.println(page.getHtml().toString());
+//            System.out.println(page.getRequest().toString());
 //            System.out.println(page.getUrl().toString());
+//            System.out.println(page.getRequest().getExtra("level"));
             List<String> links2 = page.getHtml().xpath("//div[@class='Left_bar']//ul[@class='clearfix']/li/a").links().all();
             page.addTargetRequests(links2);
         } else {
