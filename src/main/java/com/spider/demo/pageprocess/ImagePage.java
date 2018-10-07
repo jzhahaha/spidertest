@@ -1,11 +1,13 @@
 package com.spider.demo.pageprocess;
 
+import com.spider.demo.pipeline.ImagePipeline;
 import com.spider.demo.utils.ImageUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
+import us.codecraft.webmagic.pipeline.Pipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
 
 import java.util.Date;
@@ -75,8 +77,9 @@ public class ImagePage implements PageProcessor {
             String picUrl = page.getHtml().xpath("//div[@class='pic-meinv']/a").css("img","src").toString();
             String nextPageUrl = page.getHtml().xpath("//div[@class='pic-next-img']").css("a","href").toString();
             page.putField("url", picUrl);
+            page.putField("createTime", new Date());
             page.addTargetRequest(nextPageUrl);
-            ImageUtils.PicDownload(picUrl, String.valueOf(i)+".jpg");
+//            ImageUtils.PicDownload(picUrl, String.valueOf(i)+".jpg");
             logger.info("=======page : {}, url: {} , i:{}",page.getUrl().toString(), picUrl, i);
             i++;
         }
@@ -88,6 +91,7 @@ public class ImagePage implements PageProcessor {
         Spider.create(new ImagePage())
                 .addUrl("http://www.win4000.com/zt/meinv.html")
                 .thread(4)
+                .addPipeline(new ImagePipeline())
                 .start();
         Date endTime = new Date();
         System.out.println("====================="+ (endTime.getTime() - beginTime.getTime()));
