@@ -1,15 +1,23 @@
 package com.spider.demo.utils;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.security.core.parameters.P;
+
 import java.io.*;
 import java.net.URI;
 import java.net.URL;
 
 public class ImageUtils {
 
-    public static final String DOWNLOAD_PATH = "C:\\Users\\junzou214916\\Desktop\\spidertest";
+//    public static final String DOWNLOAD_PATH = "C:\\Users\\junzou214916\\Desktop\\spidertest";
+    public static final String DOWNLOAD_PATH = "C:\\Users\\zj\\Desktop\\spidertest";
+
     public static final String PIC_NAME_PRE = "/test_";
 
     public static void PicDownload(String picUrl, String name){
+        if(StringUtils.isEmpty(picUrl)){
+            return;
+        }
         try {
             URL url = new URL(picUrl);
             DataInputStream dataInputStream = new DataInputStream(url.openStream());
@@ -33,7 +41,7 @@ public class ImageUtils {
     }
 
     public static void main(String[] args) {
-        PicDownload("https://img03.sogoucdn.com/app/a/100520093/013d20860a59d114-df5b4a05f7c173f3-7e866343d6ed14122f7512cd53e13aad.jpg","1.jpg");
+        PicDownload("http://video.icoolxue.com/97853770?e=1539524858&token=66qv3jBbt6n2ODZRTS5YTnuhc3t18SyuClnpmz4C:kaiFpXhGzs0gINZpfT3etPjdF20=","1.mp3");
     }
 
 }
